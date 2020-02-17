@@ -15,6 +15,11 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->string('company_name');
+            $table->string('full_name');
+            $table->string('phone_number');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -26,6 +31,9 @@ class CreateShopsTable extends Migration
      */
     public function down()
     {
+        Schema::table('shops', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('shops');
     }
 }
