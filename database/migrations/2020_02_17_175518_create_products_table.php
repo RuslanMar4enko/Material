@@ -22,9 +22,18 @@ class CreateProductsTable extends Migration
             $table->float('price');
             $table->string('image');
             $table->text('description');
-            $table->foreign('shop_id')->references('id')->on('shops');
             $table->timestamps();
         });
+
+
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreign('shop_id')
+                ->references('id')
+                ->on('shops')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
+
     }
 
     /**

@@ -19,9 +19,17 @@ class CreateShopsTable extends Migration
             $table->string('company_name');
             $table->string('full_name');
             $table->string('phone_number');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
+
+        Schema::table('shops', function (Blueprint $table) {
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
+
     }
 
     /**
