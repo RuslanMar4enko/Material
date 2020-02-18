@@ -52,16 +52,6 @@ class ApiAuthController extends Controller
     }
 
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function me()
-    {
-        return response()->json(auth()->user());
-    }
-
-    /**
      * Log the user out (Invalidate the token).
      *
      * @return \Illuminate\Http\JsonResponse
@@ -97,15 +87,5 @@ class ApiAuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
-    }
-
-    public function getUser()
-    {
-        try {
-            $users = User::where('roles', 0)->get(['id', 'name']);
-            return response($users);
-        } catch (\Exception $exception) {
-            return response()->json('Error', 422);
-        }
     }
 }
