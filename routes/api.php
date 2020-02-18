@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'API'], function () {
     Route::apiResources([
         'shops' => 'ShopController',
+        'products' => 'ProductController',
     ]);
 });
 Route::post('login', 'ApiAuthController@login');

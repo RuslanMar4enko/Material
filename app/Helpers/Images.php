@@ -25,7 +25,7 @@ class Images
      * @param null $with
      * @param null $height
      */
-    public function resizeImage($image, $filename, $pathToSaveImage, $with = null, $height = null)
+    protected function resizeImage($image, $filename, $pathToSaveImage, $with = null, $height = null)
     {
         $image = Image::make($image->getRealPath());
         if ($with && $height) {
