@@ -12,4 +12,10 @@ class Shop extends Model
         'full_name',
         'phone_number',
     ];
+
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
+
 }

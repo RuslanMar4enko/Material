@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ShopResources;
-use App\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
+    /**
+     * ShopController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth.jwt');
@@ -57,6 +60,8 @@ class ShopController extends Controller
     public function update(Shop $shop, ShopResources $request)
     {
         $shop->fill($request->all());
+        //TODO
+        //check $request->user()->id
         $shop->user_id = Auth::id();
         $shop->save();
         return new ShopResources($shop);
@@ -69,6 +74,9 @@ class ShopController extends Controller
      */
     public function destroy(Shop $shop)
     {
+        //TODO
+        //Remove order
+        $shop->product()->delete();
         if ($shop->delete()) {
             return response()->json(['ok' => true]);
         }
