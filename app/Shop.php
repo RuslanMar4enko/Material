@@ -18,4 +18,11 @@ class Shop extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function productOrder()
+    {
+        return $this->belongsToMany(
+            Order::class, 'product_orders',
+            'order_id', 'shop_id')->withTimestamps();
+    }
+
 }

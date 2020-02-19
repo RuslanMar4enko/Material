@@ -174,7 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ImagesServiceProvider::class
+        App\Providers\ImagesServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class
 
     ],
 

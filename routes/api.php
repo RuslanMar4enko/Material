@@ -14,17 +14,18 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-  return $request->user();
+    return $request->user();
 });
-Route::group(['namespace' => 'API'], function () {
-  Route::apiResources([
-    'shops' => 'ShopController',
-    'products' => 'ProductController',
-  ]);
+Route::group(['middleware' => ['auth:api', 'api'], 'namespace' => 'API'], function () {
+    Route::apiResources([
+        'shops' => 'ShopController',
+        'products' => 'ProductController',
+    ]);
 });
+
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
-  Route::post('login', 'ApiAuthController@login');
-  Route::post('logout', 'ApiAuthController@logout');
-  Route::post('refresh', 'ApiAuthController@refresh');
+    Route::post('login', 'ApiAuthController@login');
+    Route::post('logout', 'ApiAuthController@logout');
+    Route::post('refresh', 'ApiAuthController@refresh');
 });
 
