@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shop extends Model
 {
     protected $fillable = [
+        'id',
         'user_id',
         'company_name',
         'full_name',
@@ -15,7 +16,13 @@ class Shop extends Model
 
     public function product()
     {
-        return $this->hasMany(Product::class);
+        try{
+            return $this->hasMany(Product::class);
+        }catch (\Exception $exception){
+            var_dump($exception);
+            die();
+        }
+
     }
 
     public function productOrder()

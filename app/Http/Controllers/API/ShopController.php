@@ -24,7 +24,7 @@ class ShopController extends Controller
 
     /**
      * @param Shop $shop
-     * @param ShopResources $request
+     * @param ShopRequest $request
      * @return ShopResources
      */
     public function store(Shop $shop, ShopRequest $request)
@@ -38,11 +38,12 @@ class ShopController extends Controller
 
     /**
      * @param Shop $shop
-     * @return ShopResource
+     * @return array
      */
     public function show(Shop $shop)
     {
-        return new ShopResource($shop->product());
+
+        return ['data' => $shop->product()->get()];
     }
 
     /**
