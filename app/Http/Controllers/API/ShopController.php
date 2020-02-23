@@ -42,12 +42,12 @@ class ShopController extends Controller
      */
     public function show(Shop $shop)
     {
-        return new ShopResource($shop);
+        return new ShopResource($shop->product());
     }
 
     /**
      * @param Shop $shop
-     * @param ShopResources $request
+     * @param ShopRequest $request
      * @return ShopResources
      */
     public function update(Shop $shop, ShopRequest $request)

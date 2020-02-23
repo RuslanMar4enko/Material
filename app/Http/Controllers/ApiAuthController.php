@@ -43,9 +43,8 @@ class ApiAuthController extends Controller
     public function login()
     {
         $credentials = request(['email', 'password']);
-        $token = auth()->attempt($credentials);
-        if (!$token) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
 
         return $this->respondWithToken($token);

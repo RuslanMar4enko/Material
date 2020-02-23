@@ -1,7 +1,13 @@
 <?php
 
 use Illuminate\Http\Request;
-
+//
+//header("Access-Control-Allow-Origin: *");
+//header('Access-Control-Allow-Methods: POST,GET,PUT,PATCH,OPTIONS');
+//header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Headers: *');
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +29,7 @@ Route::group(['middleware' => ['auth:api', 'api'], 'namespace' => 'API'], functi
     ]);
 });
 
-Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
+Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function () {
     Route::post('login', 'ApiAuthController@login');
     Route::post('logout', 'ApiAuthController@logout');
     Route::post('refresh', 'ApiAuthController@refresh');
