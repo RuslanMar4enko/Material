@@ -43,7 +43,7 @@ class ShopController extends Controller
     public function show(Shop $shop)
     {
 
-        return ['data' => $shop->product()->get()];
+        return ['data' => $shop->product()->latest()->get()];
     }
 
     /**
