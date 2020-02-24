@@ -31,7 +31,9 @@ class ProductController extends Controller
      * @param ProductRequest $request
      * @return ProductResources
      */
-    public function store(Product $product, ProductRequest $request){
+    public function store(Product $product, ProductRequest $request)
+    {
+
         $product->fill($request->all());
         $product->image = Images::nameImage($request->file('image'));
         $product->save();

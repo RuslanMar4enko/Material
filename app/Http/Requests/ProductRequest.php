@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'shop_id' => 'required|numeric',
-            'sku' => 'required|numeric|unique',
+            'sku' => 'required|numeric|unique:products',
             'brand' => 'required|string|max:255',
             'price' => 'required|numeric',
             'image' => 'required',

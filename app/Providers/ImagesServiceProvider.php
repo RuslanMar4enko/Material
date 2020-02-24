@@ -24,7 +24,7 @@ class ImagesServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        App::bind('Files', function () {
+        App::bind('Images', function () {
             return new \App\Helpers\Images;
         });
     }
