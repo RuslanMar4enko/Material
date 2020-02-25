@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection

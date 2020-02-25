@@ -15,7 +15,7 @@ class ProductController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth.jwt')->except(['index']);
+        $this->middleware('auth:api')->except(['index']);
     }
 
     /**
@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return ProductResources::collection(Product::paginate(25));
+        return ProductResources::collection(Product::get());
     }
 
     /**

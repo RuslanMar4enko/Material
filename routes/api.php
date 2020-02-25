@@ -22,7 +22,7 @@ header('Access-Control-Allow-Headers: *');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::group(['middleware' => ['auth:api', 'api'], 'namespace' => 'API'], function () {
+Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
     Route::apiResources([
         'shops' => 'ShopController',
         'products' => 'ProductController',
