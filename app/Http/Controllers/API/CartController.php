@@ -10,8 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class CartController extends Controller
 {
+    public function index()
+    {
 
-    public function createCart()
+    }
+
+    public function store()
     {
         $cart = Cart::create([
             'id' => Hash::make(uniqid(rand(), true)),
@@ -19,5 +23,16 @@ class CartController extends Controller
         ]);
 
         return new CartResources($cart);
+    }
+
+    public function show()
+    {
+
+    }
+
+    public function addProduct(Cart $cart, Request $request)
+    {
+//        $cart->find($request->cartId)->items()
+//            ->firstOrNew('product_id' => $request->productId);
     }
 }
