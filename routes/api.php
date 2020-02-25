@@ -27,6 +27,7 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
         'shops' => 'ShopController',
         'products' => 'ProductController',
     ]);
+    Route::post('create/cart', 'CartController@createCart');
 });
 
 Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function () {
