@@ -19,7 +19,7 @@ class CartController extends Controller
     public function storeCart()
     {
         $cart = Cart::create([
-            'id' => Hash::make(uniqid(rand(), true)),
+            'id' => md5(uniqid(rand(), true)),
             'user_id' => Auth::id() ? Auth::id() : null
         ]);
         return new CartResources($cart);
