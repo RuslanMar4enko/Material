@@ -27,9 +27,10 @@ class CartController extends Controller
 
     public function addProduct(Cart $cart, CratProductRequest $request)
     {
-        $cartItem = $cart->find($request->cartKey)->items()
+        $cart = $cart->find($request->cartKey);
+        $cartItem = $cart->items()
             ->firstOrNew(['product_id' => $request->productId]);
-        $cartItem->cart_id = $request->cartKey;
+        $cartItem->cart_id = $cart->id;
         $cartItem->quantity += 1;
         $cartItem->save();
 
