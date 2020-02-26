@@ -44,6 +44,7 @@ class CartController extends Controller
                 'products.id',
                 'products.name',
                 'products.image',
+                'products.price',
                 'products.shop_id',
             ])
         );
