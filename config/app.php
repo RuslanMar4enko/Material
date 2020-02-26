@@ -176,7 +176,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\ImagesServiceProvider::class,
-        Darryldecode\Cart\CartServiceProvider::class
 
     ],
 

@@ -27,9 +27,10 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
         'shops' => 'ShopController',
         'products' => 'ProductController',
     ]);
-    Route::post('create/cart', 'CartController@createCart');
+    Route::apiResource('carts', 'CartController');
+    Route::post('carts/item', 'CartController@addProduct');
 });
-
+Route::post('login', 'ApiAuthController@login');
 Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function () {
     Route::post('login', 'ApiAuthController@login');
     Route::post('logout', 'ApiAuthController@logout');
