@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
+    public $incrementing = false;
     protected $fillable = [
         'id',
         'user_id'
@@ -19,7 +20,7 @@ class Cart extends Model
     public function productsItems()
     {
         return $this->belongsToMany(Product::class, 'cart_items',
-            'cart_id', 'product_id')
+            'cart_id', 'product_id')->withPivot('quantity')
             ->withTimestamps();
     }
 }

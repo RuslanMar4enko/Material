@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+
 //
 //header("Access-Control-Allow-Origin: *");
 //header('Access-Control-Allow-Methods: POST,GET,PUT,PATCH,OPTIONS');
@@ -27,9 +28,12 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
         'shops' => 'ShopController',
         'products' => 'ProductController',
     ]);
-    Route::post('carts/item', 'CartController@addProduct');
-    Route::post('carts', 'CartController@storeCart');
+    Route::post('/carts/item', 'CartController@addProduct');
+    Route::post('/carts', 'CartController@storeCart');
+    Route::get('/cart/{cart}', 'CartController@getProductsItemsCart');
 });
+
+
 Route::post('login', 'ApiAuthController@login');
 Route::group(['middleware' => ['api'], 'prefix' => 'auth'], function () {
     Route::post('login', 'ApiAuthController@login');
