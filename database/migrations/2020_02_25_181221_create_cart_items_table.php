@@ -19,15 +19,8 @@ class CreateCartItemsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->timestamps();
-        });
-
-        Schema::table('cart_items', function (Blueprint $table) {
-            $table->foreign('cart_id')
-                ->references('id')
-                ->on('carts')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
         });
     }
 
