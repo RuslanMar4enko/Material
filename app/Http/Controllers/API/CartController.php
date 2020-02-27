@@ -5,12 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CratProductRequest;
+use App\Http\Requests\FileCsvRequest;
 use App\Http\Resources\CartResources;
 use App\Http\Resources\CratProductResources;
 use App\Http\Resources\ProuctsCratResources;
-use Illuminate\Http\Request;
+use App\Imports\ImportToCart;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CartController extends Controller
@@ -50,28 +51,29 @@ class CartController extends Controller
         );
     }
 
-    private function saveOrUpdateItemsCart($cart, $productId, $quantity)
+    public function csvSaveToCart(Cart $cart, FileCsvRequest $request)
     {
-        $cartItem = $cart->items()
-            ->firstOrNew(['product_id' => $productId]);
-        $cartItem->cart_id = $cart->id;
-        $cartItem->quantity = $quantity;
-        $cartItem->save();
+        try {
+            $cartProducts = Excel::toArray(new ImportToCart(), $request->file('file'));
+            $syncCart = $this->checkProduct($cartProducts);
+            $cart->productsItems()->sync($syncCart);
+            return ['status' => $syncCart];
+        } catch (\Exception $e) {
+            return $e;
+        }
+
     }
 
-    public function csvSaveToCart(Cart $cart, Request $request)
+    private function checkProduct($cartProducts): array
     {
-        $file = $request->file('file');
-        $path = $file->getRealPath();
-        if ($file->getClientOriginalExtension() === 'csv') {
-            $datas = Excel::load($path, function ($reader) {
-            })->all()->toArray();
-            foreach ($datas as $data) {
-                //TODO
-                //Check
-                var_dump($data);
-//                $this->saveOrUpdateItemsCart($cart, )
+        $arraySyncProduct = [];
+        foreach ($cartProducts[0] as $cartProduct) {
+            if (Product::find($cartProduct['product_id'])) {
+                $arraySyncProduct[$cartProduct['product_id']] = ['quantity' => $cartProduct['quantity']];
             }
         }
+
+        return $arraySyncProduct;
     }
+
 }
