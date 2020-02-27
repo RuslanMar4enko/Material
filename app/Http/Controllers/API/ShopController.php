@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
-
+    /**
+     * ShopController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth:api');
@@ -72,7 +74,6 @@ class ShopController extends Controller
      */
     public function destroy(Shop $shop)
     {
-        $shop->productOrder()->detach();
         $shop->product()->delete();
         if ($shop->delete()) {
             return response()->json(['ok' => true]);

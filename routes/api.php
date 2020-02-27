@@ -32,6 +32,8 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
     Route::post('/carts', 'CartController@storeCart');
     Route::get('/cart/{cart}', 'CartController@getProductsItemsCart');
     Route::post('/cart/import/{cart}', 'CartController@csvSaveToCart');
+    Route::delete('/cart/{cartItem}', 'CartItemController@deleteCartItem');
+    Route::put('/cart/{cartItem}', 'CartItemController@changeQuantity');
 });
 
 
