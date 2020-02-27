@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use App\CartItem;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CartItemController extends Controller
@@ -11,12 +12,15 @@ class CartItemController extends Controller
     {
         $credentials = $request->only('quantity');
         $cartItem->update($credentials);
-        return response()->json(null, 200);
+        return response()->json(['status' => true]);
     }
 
     public function deleteCartItem(CartItem $cartItem)
     {
-        $cartItem->delete();
-        return response()->json(null, 204);
+        if ($cartItem->delete()) {
+            return response()->json(['status' => true]);
+        }
+
+        return response('', 500);
     }
 }
