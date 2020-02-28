@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductOrder extends Model
 {
+    protected $hidden = ['laravel_through_key'];
     protected $fillable = [
+        'id',
         'product_id',
         'order_id',
         'shop_id',
@@ -14,4 +16,6 @@ class ProductOrder extends Model
         'price',
         'total_price'
     ];
+
+
 }

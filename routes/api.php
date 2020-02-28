@@ -36,6 +36,8 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
     Route::delete('/cart/{cartItem}', 'CartItemController@deleteCartItem');
     Route::put('/cart/{cartItem}', 'CartItemController@changeQuantity');
     Route::post('/order', 'OrderController@saveOrder');
+    Route::get('/orders', 'OrderController@getOrders');
+    Route::get('/cart/orders/{shop}', 'ShopController@getShopOrder');
 });
 
 

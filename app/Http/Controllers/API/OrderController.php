@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\OrderResources;
 use App\Order;
-use Illuminate\Http\Request;
+use http\Env\Request;
 
 class OrderController extends Controller
 {
@@ -24,5 +24,13 @@ class OrderController extends Controller
         }
 
         return new OrderResources($order);
+    }
+
+
+    public function getOrders(Order $order){
+
+        return OrderResources::collection(
+            $order->shopOrder()
+        );
     }
 }

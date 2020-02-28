@@ -57,7 +57,7 @@ class CartController extends Controller
             $cartProducts = Excel::toArray(new ImportToCart(), $request->file('file'));
             $syncCart = $this->checkProduct($cartProducts);
             $cart->productsItems()->sync($syncCart);
-            return ['status' => $syncCart];
+            return ['status' => true];
         } catch (\Exception $e) {
             return $e;
         }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Requests\ShopRequest;
+use App\Http\Resources\OrderResources;
 use App\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ShopResources;
@@ -16,7 +17,7 @@ class ShopController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api')->except(['getShopOrder']);
     }
 
     /**
@@ -80,6 +81,14 @@ class ShopController extends Controller
         }
 
         return response('', 500);
+    }
+
+    public function getShopOrder(Shop $shop) {
+        var_dump($shop->productOrders()->toArray());
+        die();
+        return OrderResources::collection(
+            $shop->productOrder()
+        );
     }
 
 }

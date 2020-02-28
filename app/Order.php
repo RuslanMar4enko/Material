@@ -16,9 +16,14 @@ class Order extends Model
 
     public function productOrders()
     {
-        return $this->belongsToMany(
-            Product::class, 'product_orders',
-            'order_id', 'product_id')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'product_orders')
+            ->withTimestamps();
+    }
+
+    public function shopOrder()
+    {
+        return $this->belongsToMany(Shop::class, 'product_orders',
+            'shop_id', 'order_id')->get();
     }
 
 }

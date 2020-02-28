@@ -16,20 +16,14 @@ class Shop extends Model
 
     public function product()
     {
-        try{
-            return $this->hasMany(Product::class);
-        }catch (\Exception $exception){
-            var_dump($exception);
-            die();
-        }
-
+        return $this->hasMany(Product::class);
     }
 
-    public function productOrder()
-    {
-        return $this->belongsToMany(
-            Order::class, 'product_orders',
-            'order_id', 'shop_id')->withTimestamps();
+    public function productOrders() {
+        return $this->hasManyThrough(
+            ProductOrder::class, Product::class,
+            'shop_id', 'product_id', 'id'
+        )->distinct()->get(['order_id']);
     }
 
 }
