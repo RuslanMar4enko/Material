@@ -76,4 +76,13 @@ class CartController extends Controller
         return $arraySyncProduct;
     }
 
+
+    public function removeCartItem(Cart $cart) {
+        if ($cart->productsItems()->detach()) {
+            return response()->json(['status' => true]);
+        }
+
+        return response('', 500);
+    }
+
 }

@@ -29,11 +29,13 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
         'products' => 'ProductController',
     ]);
     Route::post('/carts/item', 'CartController@addProduct');
+    Route::delete('/cart/item/{cart}', 'CartController@removeCartItem');
     Route::post('/carts', 'CartController@storeCart');
     Route::get('/cart/{cart}', 'CartController@getProductsItemsCart');
     Route::post('/cart/import/{cart}', 'CartController@csvSaveToCart');
     Route::delete('/cart/{cartItem}', 'CartItemController@deleteCartItem');
     Route::put('/cart/{cartItem}', 'CartItemController@changeQuantity');
+    Route::post('/order', 'OrderController@saveOrder');
 });
 
 

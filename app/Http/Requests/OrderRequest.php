@@ -26,13 +26,9 @@ class OrderRequest extends FormRequest
         return [
             'address' => 'required|string|max:255',
             'full_name' => 'required|string|max:255',
-            'delivery' => 'required|string|max:13',
+            'delivery' => 'required|string|max:255',
             'phone' => 'required|string|max:13',
-            'product_id' => 'required|numeric',
-            'order_id' => 'required|numeric',
-            'shop_id' => 'required|numeric',
-            'quantity' => 'required|numeric',
-            'price' => 'required|numeric',
+            'data' => 'required',
         ];
     }
 }
