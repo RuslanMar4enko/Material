@@ -5,12 +5,17 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Http\Resources\OrderProductsResources;
 use App\Http\Resources\OrderResources;
 use App\Order;
-use http\Env\Request;
+use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+    /**
+     * @param OrderRequest $request
+     * @return OrderResources
+     */
     public function saveOrder(OrderRequest $request)
     {
         $order = Order::create([
@@ -27,6 +32,11 @@ class OrderController extends Controller
         return new OrderResources($order);
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function deleteOrder(Order $order)
     {
         $order->productOrders()->detach();
@@ -37,14 +47,29 @@ class OrderController extends Controller
         return response('', 500);
     }
 
-
+    /**
+     * @param Order $order
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function getProductOrder(Order $order, Request $request)
     {
-        return OrderResources::collection(
-            $order->productOrders()->where('products.shop_id', $request->shopId)
-        );
+        return OrderProductsResources::collection(
+            $order->ordersProduct()
+                ->where('products.shop_id', $request->shopId)
+                ->get([
+                    'products.id',
+                    'products.name',
+                    'products.image',
+                    'products.price',
+                ]));
     }
 
+    /**
+     * @param UpdateOrderRequest $request
+     * @param Order $order
+     * @return OrderResources
+     */
     public function updateOrder(UpdateOrderRequest $request, Order $order)
     {
         return new OrderResources(

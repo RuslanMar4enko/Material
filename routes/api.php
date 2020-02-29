@@ -35,6 +35,8 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
     Route::delete('/orders/{order}', 'OrderController@deleteOrder');
     Route::put('/orders/{order}', 'OrderController@updateOrder');
     Route::get('/cart/orders/{shop}', 'ShopController@getShopOrder');
+    Route::delete('/order/product/{productOrder}', 'OrderProductController@deleteOrderItem');
+    Route::put('/order/product/{productOrder}', 'OrderProductController@changeQuantity');
 });
 
 

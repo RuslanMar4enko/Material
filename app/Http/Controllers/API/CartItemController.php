@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CartItemController extends Controller
 {
+    /**
+     * @param CartItem $cartItem
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function changeQuantity(CartItem $cartItem, Request $request)
     {
         $credentials = $request->only('quantity');
@@ -15,6 +20,11 @@ class CartItemController extends Controller
         return response()->json(['status' => true]);
     }
 
+    /**
+     * @param CartItem $cartItem
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     * @throws \Exception
+     */
     public function deleteCartItem(CartItem $cartItem)
     {
         if ($cartItem->delete()) {

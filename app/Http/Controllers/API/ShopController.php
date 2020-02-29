@@ -83,6 +83,10 @@ class ShopController extends Controller
         return response('', 500);
     }
 
+    /**
+     * @param Shop $shop
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getShopOrder(Shop $shop)
     {
         $ordersIds = $shop->productOrders();

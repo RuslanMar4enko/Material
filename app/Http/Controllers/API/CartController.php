@@ -16,7 +16,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class CartController extends Controller
 {
-
+    /**
+     * @return CartResources
+     */
     public function storeCart()
     {
         $cart = Cart::create([
@@ -26,6 +28,11 @@ class CartController extends Controller
         return new CartResources($cart);
     }
 
+    /**
+     * @param Cart $cart
+     * @param CratProductRequest $request
+     * @return CratProductResources
+     */
     public function addProduct(Cart $cart, CratProductRequest $request)
     {
         $cart = $cart->find($request->cartKey);
@@ -38,6 +45,10 @@ class CartController extends Controller
         return new CratProductResources($cartItem);
     }
 
+    /**
+     * @param Cart $cart
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function getProductsItemsCart(Cart $cart)
     {
         return ProuctsCratResources::collection(
@@ -51,6 +62,11 @@ class CartController extends Controller
         );
     }
 
+    /**
+     * @param Cart $cart
+     * @param FileCsvRequest $request
+     * @return array|\Exception
+     */
     public function csvSaveToCart(Cart $cart, FileCsvRequest $request)
     {
         try {
@@ -64,6 +80,10 @@ class CartController extends Controller
 
     }
 
+    /**
+     * @param $cartProducts
+     * @return array
+     */
     private function checkProduct($cartProducts): array
     {
         $arraySyncProduct = [];
@@ -76,7 +96,10 @@ class CartController extends Controller
         return $arraySyncProduct;
     }
 
-
+    /**
+     * @param Cart $cart
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
+     */
     public function removeCartItem(Cart $cart) {
         if ($cart->productsItems()->detach()) {
             return response()->json(['status' => true]);
