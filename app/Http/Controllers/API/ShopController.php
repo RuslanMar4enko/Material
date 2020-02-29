@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Requests\ShopRequest;
 use App\Http\Resources\OrderResources;
+use App\Order;
 use App\Shop;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ShopResources;
@@ -75,7 +76,6 @@ class ShopController extends Controller
      */
     public function destroy(Shop $shop)
     {
-        $shop->product()->delete();
         if ($shop->delete()) {
             return response()->json(['ok' => true]);
         }
@@ -83,12 +83,11 @@ class ShopController extends Controller
         return response('', 500);
     }
 
-    public function getShopOrder(Shop $shop) {
-        var_dump($shop->productOrders()->toArray());
-        die();
-        return OrderResources::collection(
-            $shop->productOrder()
-        );
+    public function getShopOrder(Shop $shop)
+    {
+        $ordersIds = $shop->productOrders();
+        $orders = Order::whereIn('id', $ordersIds)->get();
+        return response()->json(['data' => $orders]);
     }
 
 }

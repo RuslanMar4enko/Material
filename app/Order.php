@@ -20,10 +20,4 @@ class Order extends Model
             ->withTimestamps();
     }
 
-    public function shopOrder()
-    {
-        return $this->belongsToMany(Shop::class, 'product_orders',
-            'shop_id', 'order_id')->get();
-    }
-
 }

@@ -26,11 +26,19 @@ class OrderController extends Controller
         return new OrderResources($order);
     }
 
+     public function deleteOrder(Order $order) {
+         if ($order->delete()) {
+             return response()->json(['ok' => true]);
+         }
+
+         return response('', 500);
+     }
+
 
     public function getOrders(Order $order){
 
         return OrderResources::collection(
-            $order->shopOrder()
+            $order->productOrders()
         );
     }
 }
