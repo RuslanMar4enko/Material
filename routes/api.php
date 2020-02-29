@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
-//
-//header("Access-Control-Allow-Origin: *");
-//header('Access-Control-Allow-Methods: POST,GET,PUT,PATCH,OPTIONS');
-//header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
@@ -36,8 +31,9 @@ Route::group(['middleware' => ['api'], 'namespace' => 'API'], function () {
     Route::delete('/cart/{cartItem}', 'CartItemController@deleteCartItem');
     Route::put('/cart/{cartItem}', 'CartItemController@changeQuantity');
     Route::post('/order', 'OrderController@saveOrder');
-    Route::get('/orders', 'OrderController@getOrders');
-    Route::get('/orders/{order}', 'OrderController@deleteOrder');
+    Route::get('/orders/{order}', 'OrderController@getProductOrder');
+    Route::delete('/orders/{order}', 'OrderController@deleteOrder');
+    Route::put('/orders/{order}', 'OrderController@updateOrder');
     Route::get('/cart/orders/{shop}', 'ShopController@getShopOrder');
 });
 
