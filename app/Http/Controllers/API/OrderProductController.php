@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class OrderProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api' );
+    }
+
     /**
      * @param ProductOrder $productOrder
      * @param Request $request
