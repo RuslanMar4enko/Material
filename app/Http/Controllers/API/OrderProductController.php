@@ -23,7 +23,8 @@ class OrderProductController extends Controller
     /**
      * @param ProductOrder $productOrder
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
-     * @throws \Exception
+     * @throws \Exception+
+     * 
      */
     public function deleteOrderItem(ProductOrder $productOrder)
     {
