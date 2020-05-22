@@ -177,6 +177,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         App\Providers\ImagesServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        NotificationChannels\WebPush\WebPushServiceProvider::class,
 
     ],
 
